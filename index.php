@@ -4,10 +4,9 @@ if ( ! isset( $_GET['id'] ) || empty( $_GET['id'] ) ) {
 }
 
 require_once( 'fpdf.php' );
+require_once( 'model/model.php' );
 
-$db = new PDO('sqlite:' . __DIR__ . DIRECTORY_SEPARATOR . 'model' . DIRECTORY_SEPARATOR . 'database' );
-$sth = $db->query( "SELECT nome from participantes where id = '" . addslashes( $_GET['id'] ) . "' limit 1;" );
-$result = $sth->fetch( PDO::FETCH_ASSOC );
+$result = getParticipant( $_GET['id'] );
 
 if ( $result == false ) {
     die( utf8_decode( 'participante não encontrado.' ) );
